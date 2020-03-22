@@ -7,7 +7,7 @@ minetest.register_node("spacetest:wall", {
 
 minetest.register_node("spacetest:grating", {
     description = "Grating",
-    drawtype = "glasslike_framed_optional",
+    drawtype = "allfaces",
     tiles = {"grating.png"},
     paramtype = "light",
     paramtype2 = "glasslikeliquidlevel",
@@ -59,6 +59,7 @@ minetest.register_node("spacetest:light", {
 
 minetest.register_node("spacetest:solar_panel", {
     description = "Solar Panel",
+    drawtype = "normal",
     tiles = {"solar_panel.png", "grating.png"},
     groups = {cracky = 3, gravity = 1, gravblock = 1},
     sounds = spacetest.node_sound_defaults(),
@@ -90,4 +91,66 @@ minetest.register_node("spacetest:battery", {
     },
     groups = {cracky = 3, gravity = 1},
     sounds = spacetest.node_sound_defaults(),
+})
+
+minetest.register_node("spacetest:airlock_over", {
+    description = "Airlock Over",
+    drawtype = "mesh",
+    tiles = {{
+        name = "door.png",
+    }},
+    mesh = "airlock.obj",
+    paramtype2 = "facedir",
+    groups = {cracky = 3, gravity = 1, not_in_creative_inventory = 1},
+    sounds = spacetest.node_sound_defaults(),
+    on_rightclick = function(pos, node, clicker)
+      local p = {x=pos.x, y=pos.y-1, z=pos.z}
+      local n = minetest.get_node(p)
+      local ref = minetest.registered_nodes[n.name]
+      ref.on_rightclick(p, n, clicker)
+    end
+})
+
+minetest.register_node("spacetest:airlock_base", {
+    description = "Airlock Base",
+    drawtype = "mesh",
+    tiles = {{
+        name = "door.png",
+    }},
+    mesh = "airlock.obj",
+    groups = {cracky = 3, gravity = 1, not_in_creative_inventory = 1},
+    paramtype2 = "facedir",
+    sounds = spacetest.node_sound_defaults(),
+    on_rightclick = function(pos, node, clicker)
+      local over_pos = {x=pos.x, y=pos.y+1, z=pos.z}
+      local facing = node.param2
+      minetest.swap_node(pos, {name = "spacetest:airlock_open_base"})
+      minetest.swap_node(over_pos, {name = "spacetest:airlock_open_over"})
+      minetest.after(3, function()
+        minetest.swap_node(pos, {
+          name = "spacetest:airlock_base",
+          param2 = facing})
+        minetest.swap_node(over_pos, {
+          name = "spacetest:airlock_over",
+          param2 = facing})
+      end)
+    end,
+})
+
+minetest.register_node("spacetest:airlock_open_base", {
+    description = "Airlock Open base",
+    drawtype = "airlike",
+    groups = {not_in_creative_inventory = 1, cracky = 1},
+    sounds = spacetest.node_sound_defaults(),
+    sunlight_propagates = true,
+    walkable = false,
+})
+
+minetest.register_node("spacetest:airlock_open_over", {
+    description = "Airlock Open Over",
+    drawtype = "airlike",
+    groups = {not_in_creative_inventory = 1, cracky = 1},
+    sounds = spacetest.node_sound_defaults(),
+    sunlight_propagates = true,
+    walkable = false,
 })
