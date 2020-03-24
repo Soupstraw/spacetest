@@ -67,39 +67,58 @@ minetest.register_node("spacetest:light", {
 })
 
 minetest.register_node("spacetest:solar_panel", {
-    description = "Solar Panel",
-    drawtype = "normal",
-    tiles = {"solar_panel.png", "grating.png"},
-    groups = {cracky = 3, gravity = 1, gravblock = 1},
-    sounds = spacetest.node_sound_defaults(),
+  description = "Solar Panel",
+  drawtype = "normal",
+  tiles = {
+    "solar_panel.png",
+    "grating.png",
+    "grating.png",
+    "grating.png",
+    "wall_power_connector.png",
+    "wall_power_connector.png"
+  },
+  groups = {cracky = 3, gravity = 1, powery = 1},
+  connect_sides = {"front", "back"},
+  paramtype2 = "facedir",
+  sounds = spacetest.node_sound_defaults(),
 })
 
 minetest.register_node("spacetest:vent", {
-    description = "Vent",
-    tiles = {
-      "wall_vent_connector.png",
-      "vent.png",
-      "wall.png",
-      "wall.png",
-      "wall.png",
-      "wall.png",
-    },
-    groups = {cracky = 3, gravity = 1},
-    sounds = spacetest.node_sound_defaults(),
+  description = "Vent",
+  tiles = {
+    "wall_vent_connector.png",
+    "vent.png",
+    "wall.png",
+    "wall.png",
+    "wall.png",
+    "wall.png",
+  },
+  groups = {cracky = 3, gravity = 1, venty = 1},
+  sounds = spacetest.node_sound_defaults(),
+  connect_sides = {"top"},
+  on_rightclick = function(pos, node, player, pointed_thing)
+    local spec = table.concat({
+      "size[6,3]",
+      "real_coordinates[true]",
+      "button[1.5,2;3,0.8;activate;Activate]",
+    }, "")
+    minetest.show_formspec(player:get_player_name(), "vent_form", spec)
+  end,
 })
 
 minetest.register_node("spacetest:battery", {
-    description = "Battery",
-    tiles = {
-      "wall.png",
-      "wall.png",
-      "battery.png",
-      "battery.png",
-      "battery.png",
-      "battery.png",
-    },
-    groups = {cracky = 3, gravity = 1},
-    sounds = spacetest.node_sound_defaults(),
+  description = "Battery",
+  tiles = {
+    "wall.png",
+    "wall.png",
+    "battery.png",
+    "battery.png",
+    "wall_power_connector.png",
+    "battery.png",
+  },
+  paramtype2 = "facedir",
+  groups = {cracky = 3, gravity = 1, powery = 1},
+  sounds = spacetest.node_sound_defaults(),
 })
 
 minetest.register_node("spacetest:airlock_over", {
@@ -176,4 +195,31 @@ minetest.register_node("spacetest:terminal", {
   paramtype2 = "facedir",
   sunlight_propagates = true,
   light_source = 3,
+})
+
+minetest.register_node("spacetest:wall_controller", {
+  description = "Controller",
+  tiles = {
+    "wall.png", "wall.png",
+    "wall.png", "wall.png",
+    "wall_power_connector.png",
+    "wall_controller.png"
+  },
+  paramtype2 = "facedir",
+  connect_sides = {"back"},
+  groups = {cracky = 3, gravity = 1, powery = 1},
+})
+
+minetest.register_node("spacetest:wall_power_connector", {
+  description = "Power Connector Wall",
+  tiles = {
+    "wall_power_connector.png",
+    "wall_power_connector.png",
+    "wall_power_connector.png",
+    "wall_power_connector.png",
+    "wall_power_connector.png",
+    "wall_power_connector.png"
+  },
+  paramtype2 = "facedir",
+  groups = {cracky = 3, gravity = 1, powery = 1},
 })

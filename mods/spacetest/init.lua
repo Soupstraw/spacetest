@@ -67,4 +67,4 @@ local spacetest_path = minetest.get_modpath("spacetest")
 
 dofile(spacetest_path.."/nodes.lua")
 dofile(spacetest_path.."/items.lua")
-
+dofile(spacetest_path.."/pipes.lua")
