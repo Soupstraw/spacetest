@@ -1,5 +1,5 @@
 minetest.register_craftitem("spacetest:airlock", {
-    description = "airlock",
+    description = "Airlock",
     inventory_image = "airlock.png",
     on_place = function(itemstack, placer, pointed_thing)
       if not pointed_thing.type == "node" then
@@ -23,4 +23,37 @@ minetest.register_craftitem("spacetest:airlock", {
            param2 = minetest.dir_to_facedir(placer:get_look_dir())})
       end
     end
+})
+
+minetest.register_craftitem("spacetest:wire", {
+  description = "Wire",
+  inventory_image = "wire.png",
+  on_place = function(itemstack, placer, pointed_thing)
+    if not pointed_thing.type == "node" then
+      return itemstack
+    end
+    
+    local node = minetest.get_node(pointed_thing.under)
+    if node.name == "spacetest:grating" then
+      minetest.swap_node(pointed_thing.under, {name = "spacetest:grating_wired"})
+      itemstack:take_item(1)
+    end
+    return itemstack
+  end,
+})
+
+
+minetest.register_craftitem("spacetest:wirecutter", {
+  description = "Wire Cutter",
+  inventory_image = "wirecutters.png",
+  on_place = function(itemstack, placer, pointed_thing)
+    if not pointed_thing.type == "node" then
+      return itemstack
+    end
+    
+    local node = minetest.get_node(pointed_thing.under)
+    if node.name == "spacetest:grating_wired" then
+      minetest.swap_node(pointed_thing.under, {name = "spacetest:grating"})
+    end
+  end,
 })

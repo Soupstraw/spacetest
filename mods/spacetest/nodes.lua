@@ -16,6 +16,17 @@ minetest.register_node("spacetest:grating", {
     sounds = spacetest.node_sound_defaults(),
 })
 
+minetest.register_node("spacetest:grating_wired", {
+    description = "Grating Wired",
+    drawtype = "allfaces",
+    tiles = {"grating_wired.png"},
+    paramtype = "light",
+    paramtype2 = "glasslikeliquidlevel",
+    sunlight_propagates = true,
+    groups = {cracky = 3, gravity = 1, not_in_creative_inventory = 1},
+    sounds = spacetest.node_sound_defaults(),
+})
+
 minetest.register_node("spacetest:floor", {
     description = "Gravity Floor",
     tiles = {"floor.png", "wall.png"},
@@ -41,8 +52,6 @@ minetest.register_node("spacetest:light", {
         name = "light.png",
     }},
     mesh = "light.obj",
-    inventory_image = "light.png",
-    wield_image = "light.png",
     paramtype = "light",
     paramtype2 = "wallmounted",
     sunlight_propagates = true,
@@ -100,6 +109,7 @@ minetest.register_node("spacetest:airlock_over", {
         name = "door.png",
     }},
     mesh = "airlock.obj",
+    paramtype = "light",
     paramtype2 = "facedir",
     groups = {cracky = 3, gravity = 1, not_in_creative_inventory = 1},
     sounds = spacetest.node_sound_defaults(),
@@ -153,4 +163,17 @@ minetest.register_node("spacetest:airlock_open_over", {
     sounds = spacetest.node_sound_defaults(),
     sunlight_propagates = true,
     walkable = false,
+})
+
+minetest.register_node("spacetest:terminal", {
+  description = "Terminal",
+  drawtype = "mesh",
+  mesh = "terminal.obj",
+  tiles = {{
+    name = "computer.png"
+  }},
+  groups = {cracky = 3},
+  paramtype2 = "facedir",
+  sunlight_propagates = true,
+  light_source = 3,
 })
