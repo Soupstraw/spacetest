@@ -83,29 +83,6 @@ minetest.register_node("spacetest:solar_panel", {
   sounds = spacetest.node_sound_defaults(),
 })
 
-minetest.register_node("spacetest:vent", {
-  description = "Vent",
-  tiles = {
-    "wall_vent_connector.png",
-    "vent.png",
-    "wall.png",
-    "wall.png",
-    "wall.png",
-    "wall.png",
-  },
-  groups = {cracky = 3, gravity = 1, venty = 1},
-  sounds = spacetest.node_sound_defaults(),
-  connect_sides = {"top"},
-  on_rightclick = function(pos, node, player, pointed_thing)
-    local spec = table.concat({
-      "size[6,3]",
-      "real_coordinates[true]",
-      "button[1.5,2;3,0.8;activate;Activate]",
-    }, "")
-    minetest.show_formspec(player:get_player_name(), "vent_form", spec)
-  end,
-})
-
 minetest.register_node("spacetest:battery", {
   description = "Battery",
   tiles = {
