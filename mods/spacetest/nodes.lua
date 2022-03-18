@@ -98,6 +98,11 @@ minetest.register_node("spacetest:battery", {
   sounds = spacetest.node_sound_defaults(),
 })
 
+local airlock_box = {
+  type = "fixed",
+  fixed = {{-0.5, -0.5, -0.6, 0.5, 0.5, -0.4}}
+}
+
 minetest.register_node("spacetest:airlock_over", {
     description = "Airlock Over",
     drawtype = "mesh",
@@ -105,6 +110,8 @@ minetest.register_node("spacetest:airlock_over", {
         name = "door.png",
     }},
     mesh = "airlock.obj",
+    collision_box = airlock_box,
+    selection_box = airlock_box,
     paramtype = "light",
     paramtype2 = "facedir",
     groups = {cracky = 3, gravity = 1, not_in_creative_inventory = 1},
@@ -124,6 +131,8 @@ minetest.register_node("spacetest:airlock_base", {
         name = "door.png",
     }},
     mesh = "airlock.obj",
+    collision_box = airlock_box,
+    selection_box = airlock_box,
     groups = {cracky = 3, gravity = 1, not_in_creative_inventory = 1},
     paramtype2 = "facedir",
     sounds = spacetest.node_sound_defaults(),
@@ -148,6 +157,8 @@ minetest.register_node("spacetest:airlock_open_base", {
     drawtype = "airlike",
     groups = {not_in_creative_inventory = 1, cracky = 1},
     sounds = spacetest.node_sound_defaults(),
+    collision_box = airlock_box,
+    selection_box = airlock_box,
     sunlight_propagates = true,
     walkable = false,
 })
@@ -157,6 +168,8 @@ minetest.register_node("spacetest:airlock_open_over", {
     drawtype = "airlike",
     groups = {not_in_creative_inventory = 1, cracky = 1},
     sounds = spacetest.node_sound_defaults(),
+    collision_box = airlock_box,
+    selection_box = airlock_box,
     sunlight_propagates = true,
     walkable = false,
 })
